@@ -18,6 +18,12 @@ func main() {
     w.Write(content)
     return
   })
+ 
+  http.HandleFunc("/fetch/todo", func(w http.ResponseWriter, req *http.Request) {
+    w.Header().Set("Content-Type", "text/json")
+    w.Write(content)
+    return
+  })
 
   log.Fatal(http.ListenAndServe(":80", nil))
   return
