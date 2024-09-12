@@ -10,7 +10,7 @@ import (
 
 func main() {
   //Initialize error table
-  err_t := [2]error{}
+  err_t := [3]error{}
 
   //Loads all content from files when sever initializes
   static_html_content, tmp := ioutil.ReadFile("index.html")
@@ -18,14 +18,19 @@ func main() {
   todo_list_file, tmp = os.Open("todo_list.csv")
   err_t[1] = tmp
 
+  //All files opened are closed when program terminates
+  defer todo_list_file.Close()
+
+  tdl_reader := csv.NewReader(todo_list_file)
+  tdl_reader.FieldsPerRecord = -1
+  todo_list_data, tmp := tdl_reader.ReadAll()
+  err_t[2] = tmp
+  
   //If any errors in loading critical data, program crashes
-  if(err_static_initio != nil || err_data_initio != nil){
+  if(func(arr){for _, v := range arr {if v != nil {return true}}; return false(err_t)}{
     log.Panic("Error: Server failed to initialize", err_table)
     return
   }
-
-  //All files opened are closed when program terminates
-  defer todo_list_file.Close()
 
   //Generic response for http
   http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
@@ -37,7 +42,7 @@ func main() {
   //Routes 
   http.HandleFunc("/fetch/todo", func(w http.ResponseWriter, req *http.Request) {
     w.Header().Set("Content-Type", "text/json")
-    w.Write(todo_list_content)
+    w.Write(todo_list_data)
     return
   })
 
