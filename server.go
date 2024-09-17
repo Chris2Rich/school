@@ -11,7 +11,13 @@ import (
   "bytes"
 )
 
-func read_bytes(reader *bufio.Reader, start, count int)([]byte, error){
+func read_bytes(filename string, start, count int)([]byte, error){
+  file, err := os.Open(filename)
+  if(err != nil){
+    return nil, err
+  }
+
+  reader := bufio.NewReader(file)
   for i := 1; i < start; i++ {
     _, err := reader.ReadBytes('\n')
     if err != nil {
@@ -34,47 +40,72 @@ func read_bytes(reader *bufio.Reader, start, count int)([]byte, error){
     res = append(res, buffer)
   }
 
+  file.Close()
+
   return bytes.Join(res, nil), nil
 }
 
-func main() {
-  //Initialize error table
-  err_t := [3]error{}
+func write_bytes(filename string, data string)(error){ 
+  file, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0666)
+  if(err != nil){
+    return err
+  }
 
-  //Loads all content from files when sever initializes
+  writer := bufio.NewWriter(file)
+  _, err = writer.WriteString(data)
+  if err != nil {
+    return err
+  }
+
+  return writer.Flush()
+}
+
+func main() {
+  err_t := [2]error{}
+
   static_html_content, tmp := ioutil.ReadFile("index.html")
   err_t[0] = tmp
-  todo_list_file, tmp := os.Open("todo_list.txt")
+
+  /*
+  todo_list_data, tmp := read_bytes("todo_list.txt", 0, 0xFFFFFF)
   err_t[1] = tmp
+  */
 
-  //All files opened are closed when program terminates
-  defer todo_list_file.Close()
-
-  tdl_reader := bufio.NewReader(todo_list_file)
-  todo_list_data, tmp := read_bytes(tdl_reader, 0, 0xFFFFFF)
-  err_t[2] = tmp
-  
-  //If any errors in loading critical data, program crashes
   if(func(arr []error)(bool){for _, v := range arr {if v != nil {return true}}; return false}(err_t[:])){
     log.Panic("Error: Server failed to initialize", err_t)
     return
   }
 
-  //Generic response for http
-  http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+  http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request){
     w.Header().Set("Content-Type", "text/html")
     w.Write(static_html_content)
     return
   })
  
-  //Routes 
-  http.HandleFunc("/fetch/todo", func(w http.ResponseWriter, req *http.Request) {
-    w.Header().Set("Content-Type", "text/json")
+  /*
+  http.HandleFunc("/fetch/todo", func(w http.ResponseWriter, req *http.Request){
+    w.Header().Set("Content-Type", "text/plain")
     w.Write(todo_list_data)
     return
   })
 
-  //http server listens on port 80 and program crashes if any errors
-  log.Panic(http.ListenAndServe(":80", nil))
+  http.HandleFunc("/write/todo", func(w http.ResponseWriter, req *http.Request){
+    w.Header().Set("Content-Type", "text/plain")
+    err := write_bytes("todo_list.txt", "This is a test\nwords have meaning\nschema34444\nthisis line 4")
+    if(err != nil){
+      w.Write([]byte("Null"))
+      log.Panic("Error: writing to todo_list.txt failed", err)
+    } else {
+      todo_list_data, err = read_bytes("todo_list.txt", 0, 0xFFFFFF)
+      if(err != nil){
+        log.Panic("Error: todo_list_data out of sync", err)
+      } else {  
+        w.Write(todo_list_data)
+      }
+    }
+    return
+  })
+  */
+  go log.Panic(http.ListenAndServeTLS(":443", "crt.crt", "key.key", nil)) 
   return
 }
