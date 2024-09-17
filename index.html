@@ -1,6 +1,135 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="A new website for finance">
+    <meta name="keywords" content="">
+    <meta name="color-scheme" content="dark">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="maximum-scale" content="1.5">
+    <meta name="minimum-scale" content="0.5">
+    <meta name="creator" content="">
+    <meta name="creator" content="Zacaria Technologies">
+    <meta name="publisher" content="Zacaria Technologies">
+    <meta name="robots" content="all">
+    <title>Blaze</title>
+    <style>
+      :root {
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        color: #734646;
+        font-family: "Rubik Mono One", monospace;
+      }
+
+      * {
+        position: relative;
+        user-select: none;
+        scrollbar-width: thin;
+        scrollbar-color: #734646 #4f3f1a;
+        transition-duration: 350ms;
+      }
+
+      .centered {
+        text-align: center;
+        width: fit-content;
+        margin: auto;
+      }
+
+      button {
+        border-radius: 18.5px;
+        border: #4f3f1a 3.5px solid;
+        color: #734646;
+        background: #824421;
+        font-family: "Rubik Mono One", monospace;
+        font-size: 1.5rem;
+        height: 3rem;
+        transition-duration: 250ms;
+
+        &:hover {
+          cursor: pointer;
+          transform: translate(0, -10px);
+        }
+
+        &:active {
+          border-color: #824421;
+          background: #4f3f1a;
+          transition-duration: 250ms;
+          transform: translate(0, 10px);
+        }
+      }
+
+      .oov {
+        opacity: 0;
+        transform: translate(0px, 15px)
+      }
+
+      .popup {
+        position: absolute;
+        width: 90%;
+        height: fit-content;
+        left: calc(50% - 45%);
+        top: calc(50% - 45%);
+        background-image: radial-gradient(circle at top, #382222, #272317);
+        border-radius: 15px;
+        border: 5px solid #4f3f1a;
+        box-shadow: 7.5px 7.5px 15px #000;
+      }
+
+    </style>
   </head>
-  <body><p>Hello World</p></body>
+
+  <body style="display: flex; flex-direction: column;">
+    <noscript>
+      <h1 style="font: #F00">TURN ON JAVASCRIPT!</h1>
+    </noscript>
+    
+    <div style="position: fixed; top: 0px; left: 0px; background-image: radial-gradient(circle at bottom, #382222, #272317); background-size: cover; background-repeat: no-repeat; width: 100vw; height: 100vh; z-index: -1; transition-duration: 0ms;">
+      <img style="position: fixed; top: 0px; left: 0px; width: 100vw; height: 100vh; transition-duration: 0ms; object-fit: cover; mask-image: radial-gradient(#0002 35%, #000c); -webkit-mask-image: radial-gradient(#0002 35%, #000c);" src="" alt="" class="oov" onload="this.classList.remove('oov')">
+    </div>
+    
+    </div>
+      <p class="centered" style="margin-top: 2rem;">
+        Contact the owner to request features ️‍🔥<br><br>
+        Email: raterandoms@gmail.com<br>
+        Instagram: <a href="https://instagram.com/ceo_ztech">Link</a><br>
+        TikTok: <a href="https://tiktok.com/@ceo_ztech">Link</a><br>
+        Twitter <a href="https://x.com/c2r_dev">Link</a><br>
+      </p>
+
+      <footer class="centered" style="margin-top: 2rem; margin-bottom: 2rem;">&copy 2024 -  All rights reserved Zacaria Technologies</footer>
+    </div>
+    
+    <script>
+      const spinner = document.querySelector('#button_load');
+      let rotation = 0
+
+      function animate() {
+        rotation += 2.5
+        spinner.style.transform = `rotate(${rotation}deg)`
+        requestAnimationFrame(animate)
+      }
+
+      animate()
+
+      function show_modal(e){
+        switch(document.querySelector(e).classList.contains("oov")){
+          case true:
+          document.querySelector(e).classList.remove("oov")
+          document.querySelector(e).style.zIndex = 1
+          break
+
+          case false:
+          document.querySelector(e).classList.add("oov")
+          document.querySelector(e).style.zIndex = -1
+          break
+
+          default:
+            return
+        }
+        return
+      }
+      
+    </script>
+  </body>
 </html>
