@@ -103,9 +103,13 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-      Chart.defaults.backgroundColor = "#ba5e4ff0"
-      Chart.defaults.borderColor = "#bb7f52"
+      Chart.defaults.backgroundColor = "#ba5e4f"
+      Chart.defaults.borderColor = "#bb7f52f0"
       Chart.defaults.color = "#e4ddc3"
+
+      Chart.defaults.elements.bar.backgroundColor = "#ba5e4f"
+      Chart.defaults.elements.bar.borderColor = "#bb7f52"
+      Chart.defaults.borderRadius = 8
 
       const chart = document.getElementById('chart')
       
