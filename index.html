@@ -111,9 +111,18 @@
       
       new Chart(chart, {
         type: "line",
-        data: [10, 30, 50, 20, 25, 44, -10],
-        backgroundColor: "#ba5e4f",
-        borderColor: "#bb7f52"
+        label: "line chart",
+        data: {
+          labels: ["1", "2", "3", "4"],
+          datasets: [{
+            label: "My First Dataset",
+            data: [65, 59, 80, 81],
+            fill: false,
+            backgroundColor: "#ba5e4f",
+            borderColor: "bb7f52",
+            tension: 0.1
+          }]
+        }
       })
     </script>
   </body>
