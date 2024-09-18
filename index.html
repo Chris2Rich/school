@@ -90,7 +90,7 @@
     </div>
     
     <div>
-      
+      <canvas id="chart"></canvas>
       <p class="centered" style="margin-top: 2rem;">
         Contact the owner to request features:<br><br>
         Email: raterandoms@gmail.com<br>
@@ -103,23 +103,26 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-      function show_modal(e){
-        switch(document.querySelector(e).classList.contains("oov")){
-          case true:
-          document.querySelector(e).classList.remove("oov")
-          document.querySelector(e).style.zIndex = 1
-          break
+      const chart = document.getElementById('chart')
 
-          case false:
-          document.querySelector(e).classList.add("oov")
-          document.querySelector(e).style.zIndex = -1
-          break
-
-          default:
-            return
+      new Chart(chart, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
         }
-        return
-      }      
+      }
+    }
+  })
     </script>
   </body>
 </html>
