@@ -90,10 +90,17 @@
     </div>
     
     <div>
-      <canvas id="chart"></canvas>
+      <div id="onboarding">
+
+      </div>
+
+      <div id="content">
+
+      </div>
+      
       <p class="centered" style="margin-top: 2rem;">
         Contact the owner to request features:<br><br>
-        Email: ---<br>
+        Email: cz07business@gmail.com<br>
         Instagram: <a href="https://instagram.com/ceo_ztech">Link</a><br>
         TikTok: <a href="https://tiktok.com/@ceo_ztech">Link</a><br>
         Twitter <a href="https://x.com/c2r_dev">Link</a><br>
@@ -101,28 +108,12 @@
 
       <footer class="centered" style="margin-top: 2rem; margin-bottom: 2rem;">&copy 2024 -  All rights reserved Zacaria Technologies</footer>
     </div>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     <script>
-      Chart.defaults.backgroundColor = "#ba5e4ff0"
-      Chart.defaults.borderColor = "#bb7f52f0"
-      Chart.defaults.color = "#e4ddc3"
+      let onboarded = localStorage.getItem("onboarded")
+      if(onboarded == null){
 
-      const chart = document.getElementById("chart")
-      
-      new Chart(chart, {
-        type: "line",
-        data: {
-          label: ["Call Option"],
-          labels: ["-∞", "∞"],
-          datasets: [{
-            data: [0, 1],
-            fill: false,
-            backgroundColor: "#ba5e4f",
-            borderColor: "#e4ddc3",
-            borderWidth: 3,
-          }]
-        }
-      })
-    </script> -->
+      }
+    </script>
   </body>
 </html>
