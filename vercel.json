@@ -4,8 +4,11 @@
     {
       "src": "server.go",
       "use": "@vercel/go"
+    },
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
     }
-    
   ],
   "routes": [
     {
