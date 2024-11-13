@@ -37,5 +37,5 @@ func main() {
 		}
 	})
 
-	go log.Panic(http.ListenAndServeTLS(":443", "secret/crt.crt", "secret/key.key", nil))
+	go log.Panic(http.ListenAndServe(":8080", nil))
 }
