@@ -8,6 +8,14 @@ import (
 	"strings"
 )
 
+func getPort() string {
+	port := "8080"
+	if p := os.Getenv("PORT"); p != "" {
+		port = p
+	}
+	return port
+}
+
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 		w.Header().Set("Content-Type", "text/html")
@@ -37,5 +45,5 @@ func main() {
 		}
 	})
 
-	go log.Panic(http.ListenAndServe(":8080", nil))
+	log.Panic(http.ListenAndServe(":"+getPort(), nil))
 }

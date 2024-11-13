@@ -1,15 +1,23 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "server.go",
-        "use": "@vercel/go"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "server.go"
-      }
-    ]
-  }
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.go",
+      "use": "@vercel/go"
+    },
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "server.go"
+    },
+    {
+      "src": "/(.+)",
+      "dest": "server.go"
+    }
+  ]
+}
