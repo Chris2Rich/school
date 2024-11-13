@@ -5,10 +5,15 @@
       "src": "server.go",
       "use": "@vercel/go"
     }
+    
   ],
   "routes": [
     {
       "src": "/",
+      "dest": "server.go"
+    },
+    {
+      "src": "/(.+)",
       "dest": "server.go"
     }
   ]
