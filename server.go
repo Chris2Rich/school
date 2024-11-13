@@ -26,7 +26,7 @@ func main() {
         }
         return
       }
-      html, read_err := ioutil.ReadFile(u.String())
+      html, read_err := ioutil.ReadFile(u.String() + "index.html")
       if read_err != nil {
         w.Write([]byte("File failed to open."))
       } else {
